@@ -35,11 +35,13 @@ app.get('/', (req, res) => {
 
 app.get('/mongo', async (req, res) => {
 
-  res.send("check your node console, bro");
+  // res.send("check your node console, bro");
 
   let result = await cxnDB().catch(console.error); 
 
   console.log('in get to slash mongo', result[1].drink_name); 
+
+  res.send(`here ya go, joe. ${ result[1].drink_name }` ); 
 
 })
 
