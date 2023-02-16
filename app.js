@@ -1,11 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3000;  
 const bodyParser = require('body-parser')
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://barry:dGtkiX5G9ogB9DUZ@cluster0.taug6.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
