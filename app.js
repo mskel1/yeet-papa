@@ -5,9 +5,21 @@ const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+
+//process.env.MONGO_PWD;
+process.env.MONGO_URI;
+
+//const uri = "mongodb+srv://barry:" + process.env.MONGO_PWD + "@cluster0.taug6.mongodb.net/?retryWrites=true&w=majority"; 
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.set('view engine', 'ejs');
 
 async function cxnDB(){
 
@@ -29,8 +41,11 @@ async function cxnDB(){
 }
 
 
+
 app.get('/', (req, res) => {
-  res.send('Hello World This is Barry 3! <br/> <a href="mongo">mongo</a>');
+  //res.send('Hello World This is Meghan! <br/> <a href="mongo">mongo</a>');
+
+  res.render('index');
 })
 
 app.get('/mongo', async (req, res) => {
@@ -43,6 +58,22 @@ app.get('/mongo', async (req, res) => {
 
   res.send(`here ya go, joe. ${ result[1].drink_name }` ); 
 
+})
+
+app.get('/update', async (req, res) => {
+  
+  //get data from the form
+  
+  console.log("in get to slash update:", req.query.ejsFormName); 
+  myName = req.query.ejsFormName;
+  
+  //update in the database
+
+  client.connect; 
+  const collection = client.db("chillAppz").collection("drinkz");
+  await collection.insertOne({
+    drink_name: "coldie"
+  })
 })
 
 console.log('in the node console');
