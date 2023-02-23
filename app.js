@@ -9,7 +9,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 //process.env.MONGO_PWD;
 process.env.MONGO_URI;
 
-//const uri = "mongodb+srv://mskel:pqS8mfOlkDVffucp@cluster0.3rcspda.mongodb.net/?retryWrites=true&w=majority";
+//const uri = "mongodb+srv://mskel:9Dhj92Xsa2xUjQYo@cluster0.3rcspda.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
   const collection = client.db("test").collection("fruits");
