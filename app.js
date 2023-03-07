@@ -57,7 +57,7 @@ app.get('/mongo', async (req, res) => {
 
 })
 
-app.get('/update', async (req, res) => {
+app.get('/create', async (req, res) => {
   
   //get data from the form
   
@@ -71,6 +71,52 @@ app.get('/update', async (req, res) => {
   await collection.insertOne({
     name: "mango"
   })
+})
+
+app.post('/updateFruit/:id', async (req, res) => {
+
+  try {
+    console.log("req.parms.id: ", req.params.id) 
+    
+    client.connect; 
+    const collection = client.db("test").collection("fruits");
+    let result = await collection.findOneAndUpdate( 
+      {"_id": ObjectId(req.params.id)}, { $set: {"readiness": "ripe" } }
+    )
+    .then(result => {
+      console.log(result); 
+      res.redirect('/');
+    })
+    .catch(error => console.error(error))
+  }
+  finally{
+    //client.close()
+  }
+
+})
+
+app.post('/deleteFruit/:id', async (req, res) => {
+
+  try {
+    console.log("req.parms.id: ", req.params.id) 
+    
+    client.connect; 
+    const collection = client.db("test").collection("fruits");
+    let result = await collection.findOneAndDelete( 
+      {
+        "_id": ObjectId(req.params.id)
+      }
+    )
+    .then(result => {
+      console.log(result); 
+      res.redirect('/');
+    })
+    .catch(error => console.error(error))
+  }
+  finally{
+    //client.close()
+  }
+
 })
 
 console.log('in the node console');
